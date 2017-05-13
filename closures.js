@@ -71,7 +71,7 @@ function makeCounter(){
   var counter = 0;
 
   return function count(){
-    counter++;
+    return ++counter;
   };
 }
 
@@ -146,7 +146,7 @@ function motivation(firstname, lastname) {
 
   // code message function here.
   function message() {
-    return welcomeText +  firstname +' '+ lastname;
+    return welcomeText +  firstname +' '+ lastname +'.';
   }
 
   //Uncommment this to return the value of your invoked message function
@@ -212,6 +212,17 @@ var allUsers = ["Tom", "Dick", "Harry", "Anne", "Quinton", "Katie", "Mary"];
 
 function findPotentialFriends(existingFriends) {
 
+  return function (friend){
+    var result=true;
+    for ( var i = 0; i <= existingFriends.length; i++){
+        if(existingFriends[i] === friend){
+          result =false;
+        }
+    }
+    return result;
+  }
+
+
 }
 
 var isNotAFriend = findPotentialFriends( friends );
@@ -226,8 +237,8 @@ var isNotAFriend = findPotentialFriends( friends );
 method, find all potential second level friends as well as potential friends
 from allUsers. */
 
-var potentialSecondLevelFriends = "?";
-var allPotentialFriends = "?";
+var potentialSecondLevelFriends = secondLevelFriends.filter(isNotAFriend);
+var allPotentialFriends = allUsers.filter(isNotAFriend);
 
 
 /******************************************************************************\
@@ -252,9 +263,10 @@ to 5. What we need to do is console.log(i) so that it logs like so:
 
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
+      (function(j){
     setTimeout(function() {
-    	console.log(i)
-	}, i * 1000)
+    	console.log(j)
+	}, j * 1000)})(i);
   }
 }
 timeOutCounter();
