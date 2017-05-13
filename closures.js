@@ -15,11 +15,12 @@ closure over the name variable. Invoke outer saving the return value into
 another variable called 'inner'. */
 
 // Code Here
-
+var inner = outer();
 //Once you do that, invoke inner.
 
-//Code Here
 
+//Code Here
+inner();
 
 
 
@@ -48,8 +49,8 @@ in your console. */
 
   //Code Here
 
-
-
+var callJake = callFriend('Jake');
+callJake ('435-555-9248');
 
 
 
@@ -66,12 +67,20 @@ properly. */
 
 //Code Here
 
+function makeCounter(){
+  var counter = 0;
+
+  return function count(){
+    counter++;
+  };
+}
+
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+   var count = makeCounter();
+   count(); // 1
+   count(); // 2
+   count(); // 3
+   count(); // 4
 
 
 
@@ -91,8 +100,8 @@ properly. */
 up/down counter. The first function is called inc, this function is responsible
 for incrementing the value once. The second function is called dec, this
 function is responsible for decrementing the value by one. You will need to use
-the module pattern to achieve this. 
-Information on the module pattern available here: 
+the module pattern to achieve this.
+Information on the module pattern available here:
 http://stackoverflow.com/questions/17776940/javascript-module-pattern-with-example?answertab=votes#tab-top
 */
 
@@ -102,15 +111,17 @@ function counterFactory(value) {
 
 
   return {
+    inc: function(){return value += 1;},
+    dec: function(){return value -= 1;},
   }
 }
 
 
 counter = counterFactory(10);
-// counter.inc() // 11
-// counter.inc() // 12
-// counter.inc() // 13
-// counter.dec() // 12
+ counter.inc() // 11
+ counter.inc() // 12
+ counter.inc() // 13
+ counter.dec() // 12
 
 
 
@@ -134,10 +145,12 @@ function motivation(firstname, lastname) {
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
   // code message function here.
-
+  function message() {
+    return welcomeText +  firstname +' '+ lastname;
+  }
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
+  return message();
 
 }
 
@@ -175,6 +188,9 @@ var module = (function() {
   // Anything that is being returned is made public and can be invoked from
   // outside our lexical scope
   return {
+    publicMethod: function(){
+      return privateMethod();
+    }
     // Code here.
   };
 
